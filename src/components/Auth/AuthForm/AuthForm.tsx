@@ -30,16 +30,16 @@ const AuthForm: FC<AuthFormProps> = ({
 
     const isPasswordField = (name: string) => /password/.test(name);
 
-    const togglePassword = (name: string) => () => {
-        setFields((prev) => {
-            const modifiedFields = prev.map((field) =>
-                isPasswordField(field.name) && field.type === "password"
-                    ? { ...field, type: "text" }
-                    : { ...field, type: "password" }
-            );
+    const togglePassword = () => () => {
+        setFields((prev) =>
+            prev.map((field) => {
+                if (!isPasswordField(field.name)) return field;
 
-            return modifiedFields;
-        });
+                return field.type === "password"
+                    ? { ...field, type: "text" }
+                    : { ...field, type: "password" };
+            })
+        );
     };
 
     return (
@@ -64,7 +64,7 @@ const AuthForm: FC<AuthFormProps> = ({
                                 {isPasswordField(name) ? (
                                     <div
                                         className={scss["password-toggle"]}
-                                        onClick={togglePassword(name)}
+                                        onClick={togglePassword()}
                                     >
                                         {type === "password" ? (
                                             <HiEye />
