@@ -2,6 +2,15 @@
 
 .link {
     color: $secondary-color;
+    transition: all ease 0.2s;
+
+    @include tablet {
+        font-size: .8rem;
+    }
+
+    @include phone {
+        font-size: .8rem;
+    }
 
     a {
         color: $primary-color;

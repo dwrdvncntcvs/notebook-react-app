@@ -1,11 +1,13 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { useAuth } from "../../contexts/Auth";
 
 const NotebookPage = () => {
+    const { signOutAction } = useAuth();
+
     return (
         <div>
-            NotebookPage
-            <NavLink to={"/sample"}>NAvigate</NavLink>
+            <h1>Notebook Page</h1>
+            <button onClick={signOutAction}>Sign Out</button>
         </div>
     );
 };

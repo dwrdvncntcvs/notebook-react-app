@@ -5,6 +5,14 @@
     height: 100vh;
     display: flex;
 
+    @include tablet {
+        flex-direction: column-reverse;
+    }
+
+    @include phone {
+        flex-direction: column-reverse;
+    }
+
     .portal-wallpaper {
         display: flex;
         justify-content: center;
@@ -13,15 +21,53 @@
         background-color: $primary-color;
         color: $quaternary-color;
         font-size: 4rem;
+        transition: all ease 0.2s;
+
+        @include desktop {
+            flex: 2;
+            font-size: 3rem;
+        }
+
+        @include LGtablet {
+            flex: 1;
+            font-size: 1.5rem;
+        }
+
+        @include tablet {
+            flex: 1;
+            height: 8rem;
+            font-size: 1rem;
+        }
+
+        @include phone {
+            flex: 1;
+            height: 8rem;
+            font-size: 1rem;
+        }
     }
 
     .portal-form-container {
         flex: 1;
-        width: 100%;
         flex-direction: column;
         background-color: $quaternary-color;
         display: flex;
         justify-content: center;
         align-items: center;
+
+        @include desktop {
+            flex: 1;
+        }
+
+        @include LGtablet {
+            flex: 2;
+        }
+
+        @include tablet {
+            flex: 10;
+        }
+
+        @include phone {
+            flex: 10;
+        }
     }
 }

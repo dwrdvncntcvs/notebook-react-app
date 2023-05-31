@@ -74,6 +74,7 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const signOutAction = async () => {
         authStorage.removeToken();
+        navigate("/sign-in");
     };
 
     return (

@@ -53,7 +53,7 @@ const AuthForm: FC<AuthFormProps> = ({
                 <div className={scss["form-body"]}>
                     {fields.map(({ label, name, type, placeholder }) => (
                         <div key={name} className={scss["form-control"]}>
-                            <label htmlFor={name}>{label}</label>
+                            <label htmlFor={name}>{label}:</label>
                             <div className={`${scss["input-container"]} `}>
                                 <Field
                                     id={name}

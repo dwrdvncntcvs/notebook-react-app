@@ -6,25 +6,68 @@
     width: 100%;
     padding: 2rem;
     gap: 1rem;
+    transition: all ease 0.2s;
 
     h1 {
         font-size: 4rem;
         color: $primary-color;
+        transition: all ease 0.2s;
+
+        @include LGtablet {
+            align-self: center;
+            font-size: 3rem;
+        }
+        @include tablet {
+            align-self: center;
+            font-size: 3rem;
+        }
+        @include phone {
+            font-size: 3rem;
+        }
     }
 
     .form-body {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+        transition: all ease 0.2s;
+
+        @include LGtablet {
+            justify-content: center;
+            align-items: center;
+        }
+
+        @include tablet {
+            justify-content: center;
+            align-items: center;
+        }
 
         .form-control {
             display: flex;
             flex-direction: column;
             width: 100%;
+            transition: all ease 0.2s;
+            position: relative;
+
+            @include LGtablet {
+                width: 25em;
+            }
+
+            @include tablet {
+                width: 25em;
+            }
 
             label {
                 color: $primary-color;
                 margin-left: 0.5rem;
+
+                @include LGtablet {
+                    font-size: 0.75rem;
+                }
+
+                @include tablet {
+                    font-size: 0.75rem;
+                }
             }
 
             .input-container {
@@ -59,9 +102,18 @@
             }
 
             #error-message {
+                position: absolute;
                 color: $error-color;
                 font-size: 0.75rem;
-                text-align: end;
+                right: 0;
+
+                @include LGtablet {
+                    font-size: 0.6rem;
+                }
+
+                @include tablet {
+                    font-size: 0.6rem;
+                }
             }
         }
     }
@@ -77,8 +129,12 @@
         transition: all ease 0.2s;
         cursor: pointer;
 
+        @include phone {
+            width: 100%;
+        }
+
         &:hover {
-            opacity: .8;
+            opacity: 0.8;
         }
     }
 }
