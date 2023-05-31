@@ -1,8 +1,20 @@
-import { AuthForm } from "../../components/Auth";
+import { NavLink } from "react-router-dom";
+import { AuthForm, AuthLinks } from "../../components/Auth";
 import { useAuth } from "../../contexts/Auth";
 import { AuthSubmit, InputValues, SignInValues } from "../../types/Auth/auth";
 import { SignInSchema } from "../../validations/auth";
 import { inputFields, inputValues } from "./fields";
+import { IAuthLink } from "../../types/Auth/auth_links";
+
+const authLinks: IAuthLink[] = [
+    {
+        label: "Doesn't have an account?",
+        link: {
+            name: "Click Here",
+            to: "/sign-up",
+        },
+    },
+];
 
 const SignInPage = () => {
     const { signInAction } = useAuth();
@@ -13,7 +25,7 @@ const SignInPage = () => {
     };
 
     return (
-        <div>
+        <>
             <AuthForm
                 title="Sign In"
                 buttonLabel="Sign In"
@@ -22,7 +34,8 @@ const SignInPage = () => {
                 submitHandler={submitHandler}
                 validationSchema={SignInSchema}
             />
-        </div>
+            <AuthLinks authLinks={authLinks} />
+        </>
     );
 };
 

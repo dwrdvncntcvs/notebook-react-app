@@ -1,0 +1,11 @@
+@import "../../../variables.scss";
+
+.link {
+    color: $secondary-color;
+
+    a {
+        color: $primary-color;
+        text-decoration: none;
+        font-weight: 500;
+    }
+}

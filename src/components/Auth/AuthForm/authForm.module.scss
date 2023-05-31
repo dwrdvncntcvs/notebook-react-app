@@ -1,0 +1,84 @@
+@import "../../../variables.scss";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 2rem;
+    gap: 1rem;
+
+    h1 {
+        font-size: 4rem;
+        color: $primary-color;
+    }
+
+    .form-body {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .form-control {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+
+            label {
+                color: $primary-color;
+                margin-left: 0.5rem;
+            }
+
+            .input-container {
+                display: flex;
+                width: 100%;
+                border-radius: 0.5rem;
+                border: 2px solid $primary-color;
+                background-color: $quaternary-color;
+
+                input {
+                    background-color: transparent;
+                    width: 100%;
+                    padding: 0.5rem;
+                    border: none;
+                    color: $primary-color;
+
+                    &:focus {
+                        outline: transparent;
+                    }
+                }
+
+                .password-toggle {
+                    font-size: 1.25rem;
+                    color: $primary-color;
+                    width: 5rem;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    user-select: none;
+                    cursor: pointer;
+                }
+            }
+
+            #error-message {
+                color: $error-color;
+                font-size: 0.75rem;
+                text-align: end;
+            }
+        }
+    }
+
+    button {
+        background-color: $primary-color;
+        width: 15rem;
+        align-self: center;
+        color: $quaternary-color;
+        border-radius: 0.5rem;
+        padding: 0.5rem;
+        border: none;
+        transition: all ease 0.2s;
+        cursor: pointer;
+
+        &:hover {
+            opacity: .8;
+        }
+    }
+}

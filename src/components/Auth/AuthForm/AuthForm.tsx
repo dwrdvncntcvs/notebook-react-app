@@ -1,11 +1,13 @@
-import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
-import React, { FC } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import React, { FC, useState } from "react";
 import {
     AuthSubmit,
     AuthValidation,
     InputFields,
     InputValues,
 } from "../../../types/Auth/auth";
+import scss from "./authForm.module.scss";
+import { HiEye, HiEyeOff } from "react-icons/hi";
 
 interface AuthFormProps {
     initialValues: InputValues;
@@ -24,26 +26,60 @@ const AuthForm: FC<AuthFormProps> = ({
     buttonLabel,
     validationSchema,
 }) => {
+    const [fields, setFields] = useState(inputFields);
+
+    const isPasswordField = (name: string) => /password/.test(name);
+
+    const togglePassword = (name: string) => () => {
+        setFields((prev) => {
+            const modifiedFields = prev.map((field) =>
+                isPasswordField(field.name) && field.type === "password"
+                    ? { ...field, type: "text" }
+                    : { ...field, type: "password" }
+            );
+
+            return modifiedFields;
+        });
+    };
+
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={submitHandler}
         >
-            <Form>
+            <Form className={scss["form"]}>
                 <h1>{title}</h1>
-                {inputFields.map(({ label, name, type, placeholder }) => (
-                    <div key={name}>
-                        <label htmlFor={name}>{label}</label>
-                        <Field
-                            id={name}
-                            name={name}
-                            type={type}
-                            placeholder={placeholder}
-                        />
-                        <ErrorMessage name={name} />
-                    </div>
-                ))}
+                <div className={scss["form-body"]}>
+                    {fields.map(({ label, name, type, placeholder }) => (
+                        <div key={name} className={scss["form-control"]}>
+                            <label htmlFor={name}>{label}</label>
+                            <div className={`${scss["input-container"]} `}>
+                                <Field
+                                    id={name}
+                                    name={name}
+                                    type={type}
+                                    placeholder={placeholder}
+                                />
+                                {isPasswordField(name) ? (
+                                    <div
+                                        className={scss["password-toggle"]}
+                                        onClick={togglePassword(name)}
+                                    >
+                                        {type === "password" ? (
+                                            <HiEye />
+                                        ) : (
+                                            <HiEyeOff />
+                                        )}
+                                    </div>
+                                ) : null}
+                            </div>
+                            <p id={scss["error-message"]}>
+                                <ErrorMessage name={name} />
+                            </p>
+                        </div>
+                    ))}
+                </div>
                 <button type="submit">{buttonLabel}</button>
             </Form>
         </Formik>
