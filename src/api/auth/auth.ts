@@ -1,5 +1,7 @@
 import { Axios } from "axios";
 import { SignInValues, SignUpValues } from "../../types/Auth/auth";
+import { ErrorResponse, SuccessResponse } from "../../types/Api/api";
+import { AuthToken } from "../../types/Api/auth";
 
 export default class AuthAPI {
     private authUrl = (endpoint: string) => `auth${endpoint}`;
@@ -7,12 +9,20 @@ export default class AuthAPI {
     constructor(private axiosClient: Axios) {}
 
     async signIn(values: SignInValues) {
-        const response = await this.axiosClient.post(
+        const { data, status } = await this.axiosClient.post(
             this.authUrl("/sign-in"),
             JSON.stringify(values)
         );
 
-        console.log(response);
+        const responseData = JSON.parse(data);
+
+        if (status === 404) {
+            responseData["status"] = status;
+            const data = responseData as ErrorResponse<string>;
+            throw data;
+        }
+
+        return responseData as SuccessResponse<AuthToken>;
     }
 
     async signUp(values: SignUpValues) {
