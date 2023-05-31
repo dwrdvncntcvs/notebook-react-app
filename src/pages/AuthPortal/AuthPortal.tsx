@@ -1,6 +1,7 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import scss from "./authPortal.module.scss";
+import { AppTitle } from "../../components/Common";
 
 const AuthPortal = () => {
     return (
@@ -8,7 +9,9 @@ const AuthPortal = () => {
             <div className={scss["portal-form-container"]}>
                 <Outlet />
             </div>
-            <div className={scss["portal-wallpaper"]}></div>
+            <div className={scss["portal-wallpaper"]}>
+                <AppTitle />
+            </div>
         </div>
     );
 };
