@@ -1,13 +1,10 @@
 import React from "react";
-import { useAuth } from "../../contexts/Auth";
+import { NotebookNav } from "../../components/Notebook";
 
 const NotebookPage = () => {
-    const { signOutAction } = useAuth();
-
     return (
         <div>
-            <h1>Notebook Page</h1>
-            <button onClick={signOutAction}>Sign Out</button>
+            <NotebookNav />
         </div>
     );
 };
