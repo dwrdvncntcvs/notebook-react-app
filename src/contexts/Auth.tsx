@@ -17,6 +17,8 @@ import {
 } from "../types/Context/auth_context";
 import AuthStorage from "../services/AuthStorage";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { ErrorResponse } from "../types/Api/api";
 
 const authState: AuthState = {
     token: "",
@@ -59,22 +61,27 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 
     const signInAction: ISignInAction = async (values) => {
         try {
-            const { data } = await authApi.signIn(values);
+            const { data, message } = await authApi.signIn(values);
             authStorage.saveToken(data.token);
             dispatch({ type: "SET_AUTH", payload: data.token });
-            navigate("/");
+            toast.success(message);
+            navigate("/", { replace: true });
         } catch (err) {
-            console.log(err);
+            const error = err as ErrorResponse<string>;
+            toast.error(error.error);
         }
     };
 
     const signUpAction: ISignUpAction = async (values) => {
-        await authApi.signUp(values);
+        const { message } = await authApi.signUp(values);
+        toast.success(message);
+        navigate("/sign-in", { replace: true });
     };
 
     const signOutAction = async () => {
         authStorage.removeToken();
-        navigate("/sign-in");
+        toast.success("Signed Out Successfully");
+        navigate("/sign-in", { replace: true });
     };
 
     return (

@@ -6,6 +6,8 @@ import { MainLayout } from "./layouts";
 import AuthPortal from "./pages/AuthPortal/AuthPortal";
 import AuthGuard from "./routes/AuthGuard";
 import PersistGuard from "./routes/PersistGuard";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
     return (
@@ -21,6 +23,12 @@ function App() {
                     </Route>
                 </Route>
             </Routes>
+            <ToastContainer
+                autoClose={1500}
+                hideProgressBar={true}
+                position="bottom-right"
+                pauseOnHover={false}
+            />
         </MainLayout>
     );
 }
