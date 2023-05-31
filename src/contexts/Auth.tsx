@@ -5,7 +5,6 @@ import {
     useContext,
     useEffect,
     useReducer,
-    useCallback,
 } from "react";
 import { AuthAPI } from "../api";
 import { axiosClient } from "../configs/axiosClient";
@@ -51,31 +50,19 @@ const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
     const authApi = new AuthAPI(axiosClient);
     const authStorage = new AuthStorage(localStorage);
 
-    const handleToken = useCallback(() => {
+    useEffect(() => {
         const token = authStorage.getToken();
-        if (!token) {
-            navigate("/sign-in", { replace: true });
-            return;
+        if (token) {
+            dispatch({ type: "SET_AUTH", payload: token });
         }
-        dispatch({ type: "SET_AUTH", payload: token });
-        navigate("/");
     }, []);
-
-    useEffect(() => {
-        handleToken();
-    }, [handleToken]);
-
-    useEffect(() => {
-        if (state.token) {
-            navigate("/", { replace: true });
-        }
-    }, [state]);
 
     const signInAction: ISignInAction = async (values) => {
         try {
             const { data } = await authApi.signIn(values);
             authStorage.saveToken(data.token);
             dispatch({ type: "SET_AUTH", payload: data.token });
+            navigate("/");
         } catch (err) {
             console.log(err);
         }
