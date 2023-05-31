@@ -1,11 +1,15 @@
 import { AuthForm } from "../../components/Auth";
-import { InputValues } from "../../types/Auth/auth";
-import { SignUpSchema } from "../../validations/auth";
+import { useAuth } from "../../contexts/Auth";
+import { AuthSubmit, InputValues, SignInValues } from "../../types/Auth/auth";
+import { SignInSchema } from "../../validations/auth";
 import { inputFields, inputValues } from "./fields";
 
 const SignInPage = () => {
-    const submitHandler = (values: InputValues) => {
-        console.log("Values: ", values);
+    const { signInAction } = useAuth();
+
+    const submitHandler: AuthSubmit<InputValues> = async (values, helpers) => {
+        await signInAction(values);
+        helpers.resetForm();
     };
 
     return (
@@ -16,7 +20,7 @@ const SignInPage = () => {
                 inputFields={inputFields}
                 initialValues={inputValues}
                 submitHandler={submitHandler}
-                validationSchema={SignUpSchema}
+                validationSchema={SignInSchema}
             />
         </div>
     );

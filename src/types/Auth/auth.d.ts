@@ -1,4 +1,6 @@
 import { SignUpSchema, SignInSchema } from "../../validations/auth";
+import * as Yup from "yup";
+import { FormikHelpers } from "formik";
 
 interface AuthValues {
     username: string;
@@ -23,4 +25,9 @@ export interface InputFields {
 
 export type InputValues = SignInValues | SignUpValues;
 
-export type AuthValidation = SignUpSchema | SignInSchema;
+export type AuthValidation = typeof SignInSchema | typeof SignUpSchema;
+
+export type AuthSubmit<T> = (
+    values: T,
+    helpers: FormikHelpers<T>
+) => void | Promise<void>;

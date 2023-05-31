@@ -18,7 +18,7 @@ export default class AuthAPI {
     async signUp(values: SignUpValues) {
         const response = await this.axiosClient.post(
             this.authUrl("/sign-up"),
-            JSON.stringify(values)
+            JSON.stringify({ user: values })
         );
 
         console.log(response);

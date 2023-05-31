@@ -1,6 +1,7 @@
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field, ErrorMessage, FormikHelpers } from "formik";
 import React, { FC } from "react";
 import {
+    AuthSubmit,
     AuthValidation,
     InputFields,
     InputValues,
@@ -8,7 +9,7 @@ import {
 
 interface AuthFormProps {
     initialValues: InputValues;
-    submitHandler: (values: InputValues) => void;
+    submitHandler: AuthSubmit<InputValues>;
     inputFields: InputFields[];
     title: string;
     buttonLabel: string;
@@ -26,8 +27,8 @@ const AuthForm: FC<AuthFormProps> = ({
     return (
         <Formik
             initialValues={initialValues}
-            onSubmit={submitHandler}
             validationSchema={validationSchema}
+            onSubmit={submitHandler}
         >
             <Form>
                 <h1>{title}</h1>
