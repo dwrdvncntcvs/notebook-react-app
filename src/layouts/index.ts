@@ -1,1 +1,2 @@
-export { default as MainLayout } from "./MainLayout/MainLayout";
+export { default as NotebookLayout } from "./NotebookLayout/NotebookLayout";
+export { default as NotebookContentLayout } from "./NotebookContentLayout/NotebookContentLayout";

@@ -2,7 +2,6 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import { NotebookPage, SignInPage, SignUpPage } from "./pages";
-import { MainLayout } from "./layouts";
 import AuthPortal from "./pages/AuthPortal/AuthPortal";
 import AuthGuard from "./routes/AuthGuard";
 import PersistGuard from "./routes/PersistGuard";
@@ -13,7 +12,7 @@ import { CreateNotebook, NotebookList } from "./components/Notebook";
 
 function App() {
     return (
-        <MainLayout>
+        <>
             <Routes>
                 <Route element={<AuthPortal />}>
                     <Route path="/sign-in" element={<SignInPage />} />
@@ -48,7 +47,7 @@ function App() {
                 position="bottom-right"
                 pauseOnHover={false}
             />
-        </MainLayout>
+        </>
     );
 }
 

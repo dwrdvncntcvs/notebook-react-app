@@ -1,0 +1,29 @@
+@import "../../variables.scss";
+
+.notebook-content-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    border-top: 1px solid $primary-color;
+    height: 100vh;
+    background-color: $quaternary-color;
+
+    section {
+        padding: 1rem;
+
+        &:nth-child(1) {
+            border-right: 1px solid $primary-color;
+        }
+
+        &:nth-child(2) {
+            border-left: 1px solid $primary-color;
+        }
+    }
+}
+
+.notebook-content-flex-layout {
+    border-top: 1px solid $primary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
