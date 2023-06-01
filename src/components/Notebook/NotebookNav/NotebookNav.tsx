@@ -3,11 +3,13 @@ import scss from "./notebookNav.module.scss";
 import { useAuth } from "../../../contexts/Auth";
 import { AppTitle } from "../../Common";
 import { HiArrowCircleRight, HiOutlineBookOpen, HiPlus } from "react-icons/hi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 
 const NotebookNav = () => {
     const { signOutAction } = useAuth();
     const navigate = useNavigate();
+
+    const params = useParams();
 
     return (
         <nav className={scss["notebook-nav-container"]}>
@@ -23,6 +25,7 @@ const NotebookNav = () => {
                 </NavLink>
                 <NavLink
                     to={"/notebook-list"}
+                    state={{ notebookId: params.notebookId }}
                     className={scss["notebook-nav-btn"]}
                 >
                     <HiOutlineBookOpen />

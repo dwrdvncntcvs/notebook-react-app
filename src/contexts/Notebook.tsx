@@ -16,6 +16,7 @@ import { NotebookAPI } from "../api";
 import { PageMeta } from "../types/Api/api";
 import { useAuth } from "./Auth";
 import { axiosClient } from "../configs/axiosClient";
+import { useLocation, useParams } from "react-router-dom";
 
 const defaultMeta: PageMeta = {
     limit: 0,
@@ -51,12 +52,11 @@ const notebookReducer: NotebookReducer = (state, action) => {
 const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(notebookReducer, notebookState);
     const { token } = useAuth();
-
+    const notebookApi = new NotebookAPI(axiosClient, {
+        Authorization: `Bearer ${token}`,
+    });
+    
     const getNotebooks: GetNotebooks = useCallback(async () => {
-        const notebookApi = new NotebookAPI(axiosClient, {
-            Authorization: `Bearer ${token}`,
-        });
-
         try {
             const response = await notebookApi.getNotebooks({
                 limit: 13,

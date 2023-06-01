@@ -32,6 +32,12 @@
                 text-decoration: none;
                 transition: all ease 0.2s;
 
+                &.active {
+                    font-weight: bold;
+                    background-color: $primary-color;
+                    color: $quaternary-color;
+                }
+
                 &:hover {
                     font-weight: bold;
                     background-color: $primary-color;
