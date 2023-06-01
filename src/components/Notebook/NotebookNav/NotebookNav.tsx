@@ -11,6 +11,8 @@ const NotebookNav = () => {
 
     const params = useParams();
 
+    const notebookId = params.notebookId ? params.notebookId : "";
+
     return (
         <nav className={scss["notebook-nav-container"]}>
             <div className={scss["notebook-nav-header"]}>
@@ -20,11 +22,14 @@ const NotebookNav = () => {
             </div>
 
             <div className={scss["notebook-nav-actions"]}>
-                <NavLink to={"/create"} className={scss["notebook-nav-btn"]}>
+                <NavLink
+                    to={`/${notebookId}/create`}
+                    className={scss["notebook-nav-btn"]}
+                >
                     <HiPlus />
                 </NavLink>
                 <NavLink
-                    to={"/notebook-list"}
+                    to={`/${notebookId}/notebook-list`}
                     state={{ notebookId: params.notebookId }}
                     className={scss["notebook-nav-btn"]}
                 >

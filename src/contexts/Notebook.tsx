@@ -86,9 +86,8 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
         async (values) => {
             try {
                 const response = await notebookApi.createNotebook(values);
-
                 toast.success(response.message);
-                navigate(-1);
+                navigate(`/${response.data.notebook.id}`);
             } catch (err) {
                 console.log("Error: ", err);
             }

@@ -5,7 +5,11 @@ export type SuccessNotebookResponse = SuccessResponse<
     PaginatedData<Notebook[], "notebooks">
 >;
 
-export type SuccessCreateNotebookResponse = SuccessResponse<Notebook>;
+interface NotebookData {
+    notebook: Notebook;
+}
+
+export type SuccessCreateNotebookResponse = SuccessResponse<NotebookData>;
 
 interface GetNotebooksParams {
     pagination: Pagination;
