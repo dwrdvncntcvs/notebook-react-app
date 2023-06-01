@@ -1,7 +1,9 @@
 import axios, { Axios } from "axios";
 
+const BASE_URL = "http://localhost:3001";
+
 const axiosClient = new Axios({
-    baseURL: "http://localhost:3001",
+    baseURL: BASE_URL,
     headers: {
         "Content-Type": "application/json",
     },

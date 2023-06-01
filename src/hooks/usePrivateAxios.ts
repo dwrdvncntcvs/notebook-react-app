@@ -4,9 +4,9 @@ import AuthStorage from "../services/AuthStorage";
 import { useEffect } from "react";
 
 const usePrivateAxios = () => {
-    const { isAuth, token } = useAuth();
-
+    const { isAuth } = useAuth();
     useEffect(() => {
+        const token = new AuthStorage(localStorage).getToken();
         const reqInterceptor = axiosClient.interceptors.request.use(
             (config) => {
                 if (!config?.headers?.Authorization) {
@@ -14,30 +14,13 @@ const usePrivateAxios = () => {
                 }
                 return config;
             },
-            (error) => Promise.reject(error)
-        );
-
-        const resInterceptor = axiosClient.interceptors.response.use(
-            (response) => response,
-            async (err) => {
-                const previousReq = err?.config;
-
-                if (err.response.status === 403 && !previousReq?.sent) {
-                    const authStorage = new AuthStorage(localStorage);
-                    previousReq.sent = true;
-                    const newAccessToken = authStorage.getToken() as string;
-                    previousReq.headers[
-                        "Authorization"
-                    ] = `Bearer ${newAccessToken}`;
-                    return axiosClient.request(previousReq);
-                }
-                return Promise.reject(err);
+            (error) => {
+                return Promise.reject(error);
             }
         );
 
         return () => {
             axiosClient.interceptors.request.eject(reqInterceptor);
-            axiosClient.interceptors.response.eject(resInterceptor);
         };
     }, [isAuth]);
 

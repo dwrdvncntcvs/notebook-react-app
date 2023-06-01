@@ -1,28 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import scss from "./notebookList.module.scss";
 import { NavLink } from "react-router-dom";
+import { useNotebook } from "../../../contexts/Notebook";
 
 const sc_name = "nb-l";
 
 const NotebookList = () => {
-    const sampleData = [
-        {
-            id: 1,
-            label: "Notebook 1",
-        },
-        {
-            id: 2,
-            label: "Notebook 2",
-        },
-        {
-            id: 3,
-            label: "Notebook 3",
-        },
-        {
-            id: 4,
-            label: "Notebook 4",
-        },
-    ];
+    const { notebooks, getNotebooks } = useNotebook();
+
+    useEffect(() => {
+        getNotebooks();
+    }, [getNotebooks]);
 
     return (
         <div className={scss[`${sc_name}-container`]}>
@@ -30,9 +18,9 @@ const NotebookList = () => {
                 <h1>Notebook List</h1>
             </div>
             <ul className={scss[`${sc_name}-list`]}>
-                {sampleData.map(({ id, label }) => (
+                {notebooks.map(({ id, name }) => (
                     <li key={id}>
-                        <NavLink to={`/${id}`}>{label}</NavLink>
+                        <NavLink to={`/${id}`}>{name}</NavLink>
                     </li>
                 ))}
             </ul>
