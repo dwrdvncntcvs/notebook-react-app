@@ -9,6 +9,7 @@ import PersistGuard from "./routes/PersistGuard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PageModalOverlay } from "./components/Common";
+import { NotebookList } from "./components/Notebook";
 
 function App() {
     return (
@@ -25,7 +26,7 @@ function App() {
                                 path="notebook-list"
                                 element={
                                     <PageModalOverlay>
-                                        Hello World
+                                        <NotebookList />
                                     </PageModalOverlay>
                                 }
                             />

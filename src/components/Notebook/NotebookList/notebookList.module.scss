@@ -1,0 +1,43 @@
+@import "../../../variables.scss";
+
+.nb-l-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 1rem;
+    gap: 1rem;
+
+    .nb-l-header {
+        h1 {
+            color: $primary-color;
+        }
+    }
+
+    .nb-l-list {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        li {
+            display: flex;
+            width: 100%;
+
+            a {
+                width: 100%;
+                padding: 1rem;
+                background-color: $tertiary-color;
+                border-radius: 0.5rem;
+                color: $primary-color;
+                text-decoration: none;
+                transition: all ease 0.2s;
+
+                &:hover {
+                    font-weight: bold;
+                    background-color: $primary-color;
+                    color: $quaternary-color;
+                }
+            }
+        }
+    }
+}
