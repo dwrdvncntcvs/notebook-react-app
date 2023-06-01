@@ -8,6 +8,7 @@ import AuthGuard from "./routes/AuthGuard";
 import PersistGuard from "./routes/PersistGuard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PageModalOverlay } from "./components/Common";
 
 function App() {
     return (
@@ -19,7 +20,16 @@ function App() {
                 </Route>
                 <Route path="" element={<PersistGuard />}>
                     <Route element={<AuthGuard />}>
-                        <Route path="/" element={<NotebookPage />} />
+                        <Route path="/:notebookId?/" element={<NotebookPage />}>
+                            <Route
+                                path="notebook-list"
+                                element={
+                                    <PageModalOverlay>
+                                        Hello World
+                                    </PageModalOverlay>
+                                }
+                            />
+                        </Route>
                     </Route>
                 </Route>
             </Routes>
