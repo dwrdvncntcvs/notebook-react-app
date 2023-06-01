@@ -12,9 +12,10 @@ import {
     NotebookReducer,
     NotebookState,
 } from "../types/Context/notebook_context";
-import usePrivateAxios from "../hooks/usePrivateAxios";
 import { NotebookAPI } from "../api";
 import { PageMeta } from "../types/Api/api";
+import { useAuth } from "./Auth";
+import { axiosClient } from "../configs/axiosClient";
 
 const defaultMeta: PageMeta = {
     limit: 0,
@@ -49,10 +50,12 @@ const notebookReducer: NotebookReducer = (state, action) => {
 
 const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(notebookReducer, notebookState);
-    const axiosClient = usePrivateAxios();
+    const { token } = useAuth();
 
     const getNotebooks: GetNotebooks = useCallback(async () => {
-        const notebookApi = new NotebookAPI(axiosClient);
+        const notebookApi = new NotebookAPI(axiosClient, {
+            Authorization: `Bearer ${token}`,
+        });
 
         try {
             const response = await notebookApi.getNotebooks({
@@ -71,7 +74,7 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
         } catch (err) {
             console.log((err as any).message);
         }
-    }, []);
+    }, [token]);
 
     return (
         <NotebookContext.Provider value={{ ...state, getNotebooks }}>
