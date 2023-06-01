@@ -16,6 +16,10 @@
         justify-content: flex-start;
         align-items: center;
         color: $primary-color;
+
+        h1 {
+            margin-left: 2rem;
+        }
     }
 
     .notebook-nav-actions {
