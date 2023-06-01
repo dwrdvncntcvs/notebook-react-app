@@ -20,6 +20,11 @@ export interface PageMeta {
     total_pages: number;
 }
 
+export interface Pagination {
+    page: number;
+    limit: number;
+}
+
 export type PaginatedData<T, K extends string> = {
     [key in K]: T;
 } & { meta: PageMeta };

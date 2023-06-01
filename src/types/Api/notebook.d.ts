@@ -1,10 +1,18 @@
 import { Notebook } from "../Notebooks/notebook";
-import { PaginatedData, SuccessResponse } from "./api";
+import { PaginatedData, Pagination, SuccessResponse } from "./api";
 
 export type SuccessNotebookResponse = SuccessResponse<
     PaginatedData<Notebook[], "notebooks">
 >;
 
+interface GetNotebooksParams {
+    pagination: Pagination;
+}
+
+type GetNotebooks = (
+    pagination: Pagination
+) => Promise<SuccessNotebookResponse>;
+
 export interface INotebookApi {
-    getNotebooks: () => Promise<SuccessNotebookResponse>;
+    getNotebooks: GetNotebooks;
 }

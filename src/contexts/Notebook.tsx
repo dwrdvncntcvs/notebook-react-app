@@ -55,7 +55,10 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
         const notebookApi = new NotebookAPI(axiosClient);
 
         try {
-            const response = await notebookApi.getNotebooks();
+            const response = await notebookApi.getNotebooks({
+                limit: 13,
+                page: 1,
+            });
 
             dispatch({
                 type: "SET_NOTEBOOKS",

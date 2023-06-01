@@ -1,5 +1,6 @@
 import { Axios } from "axios";
 import {
+    GetNotebooks,
     INotebookApi,
     SuccessNotebookResponse,
 } from "../../types/Api/notebook";
@@ -9,10 +10,12 @@ export default class NotebookApi implements INotebookApi {
 
     constructor(private axiosClient: Axios) {}
 
-    async getNotebooks() {
-        const response = await this.axiosClient.get(this.notebookUrl("/"));
+    getNotebooks: GetNotebooks = async ({ limit = 10, page = 1 }) => {
+        const response = await this.axiosClient.get(
+            this.notebookUrl(`/?page=${page}&limit=${limit}`)
+        );
         const data = JSON.parse(response.data);
 
         return data as SuccessNotebookResponse;
-    }
+    };
 }
