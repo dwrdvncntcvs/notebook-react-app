@@ -11,7 +11,7 @@ const NotebookNav = () => {
 
     const params = useParams();
 
-    const notebookId = params.notebookId ? params.notebookId : "";
+    const notebookId = params.notebookId ? `/${params.notebookId}` : "";
 
     return (
         <nav className={scss["notebook-nav-container"]}>
@@ -23,14 +23,13 @@ const NotebookNav = () => {
 
             <div className={scss["notebook-nav-actions"]}>
                 <NavLink
-                    to={`/${notebookId}/create`}
+                    to={`${notebookId}/create`}
                     className={scss["notebook-nav-btn"]}
                 >
                     <HiPlus />
                 </NavLink>
                 <NavLink
-                    to={`/${notebookId}/notebook-list`}
-                    state={{ notebookId: params.notebookId }}
+                    to={`${notebookId}/notebook-list`}
                     className={scss["notebook-nav-btn"]}
                 >
                     <HiOutlineBookOpen />

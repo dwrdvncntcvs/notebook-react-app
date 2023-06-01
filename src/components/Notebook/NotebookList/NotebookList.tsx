@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import scss from "./notebookList.module.scss";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { useNotebook } from "../../../contexts/Notebook";
 
 const sc_name = "nb-l";
 
 const NotebookList = () => {
     const { notebooks, getNotebooks } = useNotebook();
-    const location = useLocation();
+    const params = useParams();
 
     useEffect(() => {
         getNotebooks();
@@ -25,7 +25,7 @@ const NotebookList = () => {
                             <NavLink
                                 to={`/${id}`}
                                 className={
-                                    +location.state?.notebookId === id
+                                    +params!.notebookId! === id
                                         ? scss["active"]
                                         : ""
                                 }
