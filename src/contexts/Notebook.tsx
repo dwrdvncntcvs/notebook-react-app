@@ -7,6 +7,7 @@ import {
     useContext,
 } from "react";
 import {
+    CreateNotebook,
     GetNotebooks,
     INotebookContext,
     NotebookReducer,
@@ -16,7 +17,9 @@ import { NotebookAPI } from "../api";
 import { PageMeta } from "../types/Api/api";
 import { useAuth } from "./Auth";
 import { axiosClient } from "../configs/axiosClient";
-import { useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { NOTEBOOK } from "../variables";
 
 const defaultMeta: PageMeta = {
     limit: 0,
@@ -33,6 +36,7 @@ const NotebookContext = createContext<INotebookContext>({
     notebooks: [],
     notebookMeta: defaultMeta,
     getNotebooks: async () => {},
+    createNotebook: async () => {},
 });
 
 const notebookReducer: NotebookReducer = (state, action) => {
@@ -52,10 +56,12 @@ const notebookReducer: NotebookReducer = (state, action) => {
 const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
     const [state, dispatch] = useReducer(notebookReducer, notebookState);
     const { token } = useAuth();
+    const navigate = useNavigate();
+
     const notebookApi = new NotebookAPI(axiosClient, {
         Authorization: `Bearer ${token}`,
     });
-    
+
     const getNotebooks: GetNotebooks = useCallback(async () => {
         try {
             const response = await notebookApi.getNotebooks({
@@ -76,8 +82,24 @@ const NotebookProvider: FC<PropsWithChildren> = ({ children }) => {
         }
     }, [token]);
 
+    const createNotebook: CreateNotebook = useCallback(
+        async (values) => {
+            try {
+                const response = await notebookApi.createNotebook(values);
+
+                toast.success(response.message);
+                navigate(-1);
+            } catch (err) {
+                console.log("Error: ", err);
+            }
+        },
+        [getNotebooks, state.notebooks]
+    );
+
     return (
-        <NotebookContext.Provider value={{ ...state, getNotebooks }}>
+        <NotebookContext.Provider
+            value={{ ...state, getNotebooks, createNotebook }}
+        >
             {children}
         </NotebookContext.Provider>
     );

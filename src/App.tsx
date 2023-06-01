@@ -9,7 +9,7 @@ import PersistGuard from "./routes/PersistGuard";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PageModalOverlay } from "./components/Common";
-import { NotebookList } from "./components/Notebook";
+import { CreateNotebook, NotebookList } from "./components/Notebook";
 
 function App() {
     return (
@@ -27,6 +27,14 @@ function App() {
                                 element={
                                     <PageModalOverlay>
                                         <NotebookList />
+                                    </PageModalOverlay>
+                                }
+                            />
+                            <Route
+                                path="create"
+                                element={
+                                    <PageModalOverlay>
+                                        <CreateNotebook />
                                     </PageModalOverlay>
                                 }
                             />

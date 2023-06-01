@@ -1,5 +1,5 @@
 import { PageMeta } from "../Api/api";
-import { Notebook } from "../Notebooks/notebook";
+import { Notebook, NotebookValues } from "../Notebooks/notebook";
 
 export interface NotebookState {
     notebooks: Notebook[];
@@ -23,6 +23,9 @@ export type NotebookReducer = (
 
 export type GetNotebooks = () => Promise<void>;
 
+export type CreateNotebook = (values: NotebookValues) => Promise<void>;
+
 export interface INotebookContext extends NotebookState {
     getNotebooks: GetNotebooks;
+    createNotebook: CreateNotebook;
 }

@@ -20,7 +20,7 @@ const NotebookNav = () => {
             </div>
 
             <div className={scss["notebook-nav-actions"]}>
-                <NavLink to={"/"} className={scss["notebook-nav-btn"]}>
+                <NavLink to={"/create"} className={scss["notebook-nav-btn"]}>
                     <HiPlus />
                 </NavLink>
                 <NavLink

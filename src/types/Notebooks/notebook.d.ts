@@ -1,3 +1,5 @@
+import { FormikHelpers } from "formik";
+
 export interface Notebook {
     id: number;
     name: string;
@@ -6,3 +8,11 @@ export interface Notebook {
     user_id: string;
 }
 
+export interface NotebookValues {
+    name: string;
+}
+
+export type NotebookSubmitHandler = (
+    values: NotebookValues,
+    helper: FormikHelpers<NotebookValues>
+) => void;
